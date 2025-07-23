@@ -84,44 +84,7 @@ The state holder manages the search functionality and dialog state transitions.
 - **Results**: Shows filtered list with highlighted matches
 - **Error State**: TextField shows error state when no matches found
 
-## Advanced Usage
-
-### Custom Leading Icon
-
-```kotlin
-SearchDialog(
-    searchDialogState = searchDialogState,
-    placeholder = "Select country",
-    leadingIcon = {
-        Icon(
-            imageVector = Icons.Default.LocationOn,
-            contentDescription = "Location",
-            tint = MaterialTheme.colorScheme.primary
-        )
-    },
-    onSelectItem = { country ->
-        viewModel.selectCountry(country)
-    }
-)
-```
-
-### Custom Data Source
-
-```kotlin
-val customItems = listOf(
-    "Apple", "Banana", "Cherry", "Date", "Elderberry"
-)
-
-val searchState = rememberSearchDialogState(customItems)
-
-SearchDialog(
-    searchDialogState = searchState,
-    placeholder = "Choose fruit",
-    onSelectItem = { fruit ->
-        // Handle fruit selection
-    }
-)
-```
+---
 
 ## Implementation Details
 
