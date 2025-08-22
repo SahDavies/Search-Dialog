@@ -1,5 +1,4 @@
-package com.studentofknowledge.JetSurvey.util
-
+package com.sirdavies.searchdialog.utility
 class GSuffArray(vararg inputTexts: String) {
     companion object {
         private const val CUTOFF = 5   // cutoff to insertion sort

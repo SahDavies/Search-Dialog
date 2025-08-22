@@ -22,7 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -48,7 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.studentofknowledge.JetSurvey.util.GSuffArray
+import com.sirdavies.searchdialog.utility.GSuffArray
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -266,9 +266,9 @@ fun SearchDialog(
                                 }
                                 // Divider between items, but not after the last one
                                 if (suggestions.last() != itemText) {
-                                    Divider(
-                                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f), // Softer divider
-                                        thickness = 1.dp
+                                    HorizontalDivider(
+                                        thickness = 1.dp,
+                                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f) // Softer divider
                                     )
                                 }
                             }
