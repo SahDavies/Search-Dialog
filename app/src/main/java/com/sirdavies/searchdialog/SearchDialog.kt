@@ -118,7 +118,6 @@ fun SearchDialog(
         val rotate = animateFloatAsState(if (searchDialogState.isSearch()) 180f else 0f)
         Surface(
             modifier = modifier
-                .padding(10.dp)
                 .clickable { searchDialogState.updateViewState() },
             tonalElevation = 4.dp,
             shape = RoundedCornerShape(4.dp)
@@ -301,9 +300,7 @@ fun SearchDialog(
     }
 
     Box(
-        modifier = Modifier
-            .wrapContentSize()
-            .padding(16.dp),
+        modifier = Modifier.wrapContentSize(),
         contentAlignment = Alignment.Center
     ) {
         val text = searchDialogState.query
