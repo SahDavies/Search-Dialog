@@ -1,4 +1,5 @@
 package com.sirdavies.searchdialog.utility
+
 class GSuffArray(vararg inputTexts: String) {
     companion object {
         private const val CUTOFF = 5   // cutoff to insertion sort
@@ -16,7 +17,7 @@ class GSuffArray(vararg inputTexts: String) {
 
         // 1) build sentinel-appended char arrays
         for (t in 0 until m) {
-            texts[t] = (inputTexts[t] + '\u0000').toCharArray()
+            texts[t] = (inputTexts[t].lowercase() + '\u0000').toCharArray()
         }
 
         // 2) compute offsets and total character count
@@ -110,11 +111,17 @@ class GSuffArray(vararg inputTexts: String) {
 
     // find which text a flat code belongs to via offsets[]
     private fun textId(code: Int): Int {
-        // simple linear scan (m is usually small)
-        for (t in m - 1 downTo 0) {
-            if (code >= offsets[t]) return t
+        var lo = 0
+        var hi: Int = offsets.size - 1
+        while (lo <= hi) {
+            // Code is in a[lo..hi].
+            val mid = lo + (hi - lo) / 2
+            if (code < offsets[mid]) hi = mid - 1
+            else if (code > offsets[mid]) lo = mid + 1
+            else return mid
         }
-        return 0
+
+        return hi
     }
 
     // compute position within its text
@@ -149,10 +156,11 @@ class GSuffArray(vararg inputTexts: String) {
     fun rank(query: String): Int {
         var lo = 0
         var hi = totalChars - 1
+        val queryLowerCased = query.lowercase()
         while (lo <= hi) {
             val mid = lo + (hi - lo) / 2
             val code = index[mid]
-            val cmp = compareSuffixToQuery(code, query)
+            val cmp = compareSuffixToQuery(code, queryLowerCased)
             if (cmp < 0) {
                 // suffix < query → go right
                 lo = mid + 1
@@ -202,10 +210,11 @@ class GSuffArray(vararg inputTexts: String) {
      * Given a query string, returns an array of original texts that contains the given string.
      */
     fun match(query: String): List<String> {
+        val queryLowerCased = query.lowercase()
         // find the range of suffixes that start with 'query'
-        val start = rank(query)
+        val start = rank(queryLowerCased)
         // use a high "sentinel" to find the upper bound
-        val hiQuery = query + '\uffff'
+        val hiQuery = queryLowerCased + '\uffff'
         val end = rank(hiQuery)
 
         val seen = BooleanArray(m)
