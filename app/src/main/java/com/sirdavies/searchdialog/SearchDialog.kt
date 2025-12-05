@@ -248,7 +248,7 @@ fun SearchDialog(
                                 }
                             }
                         } else {
-                            items(items = suggestions, key = { item -> item.hashCode() }) { itemText ->
+                            items(items = suggestions, key = { item -> item }) { itemText ->
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth() // Ensure item takes full width
